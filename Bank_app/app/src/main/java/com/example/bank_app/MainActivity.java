@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (c.getId() == final_id) {
                                     client_connect = c;
 
-                                    Toast.makeText(getApplicationContext(),"Welcome "+client_connect.getName() , Toast.LENGTH_LONG).show();
+
                                     Intent intent = new Intent(MainActivity.this, page_bank.class);
                                     startActivity(intent);
                                 }
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<List<Client>> call, Throwable t) {
                         progressDoalog.dismiss();
-                        Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", 10).show();
                     }
 
 

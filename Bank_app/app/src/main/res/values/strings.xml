@@ -9,4 +9,5 @@
     <string name="id">Id du Compte</string>
     <string name="monaie">Monaie</string>
     <string name="select">Select the account you want to see</string>
+    <string name="validation">Press here to see your account details</string>
 </resources>
