@@ -13,6 +13,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -28,11 +29,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+
+
+        if(!new PrefManager(this).isUserLogedOut()) {
+            //if the use already log with is id
+            startBankActivity();
+        }
 
         Button button = (Button) findViewById(R.id.button_main);
         button.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(Call<List<Client>> call, Response<List<Client>> response) {
 
                         progressDoalog.dismiss();
-                        System.out.println("reponse est :\n" + response.toString());
+                        //System.out.println("reponse est :\n" + response.toString());
 
 
                         if (response.isSuccessful()) {
@@ -61,13 +70,12 @@ public class MainActivity extends AppCompatActivity {
                             int i = 0;
                             Client client_connect=new Client();
                             for (Client c : response.body()) {
-                                System.out.println("Nom: " + c.getName());
+                                //System.out.println("Nom: " + c.getName());
                                 i = i + 1;
                                 int final_id = Integer.parseInt(id_recup.getText().toString());
                                 if (c.getId() == final_id) {
                                     client_connect = c;
-
-
+                                    saveLoginDetails(id_recup.getText().toString()); //Save the id for the next start
                                     Intent intent = new Intent(MainActivity.this, page_bank.class);
                                     startActivity(intent);
                                 }
@@ -89,17 +97,20 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", 10).show();
                     }
 
-
-
-
-
-
                 });
 
 
             }
 
         });
+    }
+    private void saveLoginDetails(String id) {
+        new PrefManager(this).saveLoginDetails(id);
+    }
+    private void startBankActivity() {
+        Intent intent = new Intent(MainActivity.this, page_bank.class);
+        startActivity(intent);
+        finish();
     }
 }
 

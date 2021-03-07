@@ -184,7 +184,7 @@ public class page_bank extends AppCompatActivity implements AdapterView.OnItemSe
                     Compte_bank compte_personne = new Compte_bank();
                     for (Compte_bank b : response.body()) {
                         list_spinner.add(b.getAccountName());
-                        System.out.println("Compte bancaire n°" + b.getId()+"   Iban :"+b.getIban()+"   Nom  : "+b.getAccountName()+"     Argent :"+b.getAmount());
+                        //System.out.println("Compte bancaire n°" + b.getId()+"   Iban :"+b.getIban()+"   Nom  : "+b.getAccountName()+"     Argent :"+b.getAmount());
                     }
                     ArrayAdapter<String> adapter;
                     adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, list_spinner);
@@ -202,7 +202,7 @@ public class page_bank extends AppCompatActivity implements AdapterView.OnItemSe
     }
     public void onItemSelected(AdapterView<?> parent, View view,int position, long id) {
         final int[] i = {0};
-        System.out.println("La postion est :" + position);
+        //System.out.println("La postion est :" + position);
 
         GetDataServiceMoney service = RetrofitClientInstance.getRetrofitInstance().create(GetDataServiceMoney.class);
         Call<List<Compte_bank>> call_2 = service.getAllMoney();
@@ -214,7 +214,7 @@ public class page_bank extends AppCompatActivity implements AdapterView.OnItemSe
                     for (Compte_bank b : response.body()) {
                         if (position != 0) {
                             if (i[0] == position) {
-                                System.out.println("Compte bancaire n°" + b.getId() + "   Iban :" + b.getIban() + "   Nom  : " + b.getAccountName() + "     Argent :" + b.getAmount());
+                               // System.out.println("Compte bancaire n°" + b.getId() + "   Iban :" + b.getIban() + "   Nom  : " + b.getAccountName() + "     Argent :" + b.getAmount());
                                 TextView id_p = (TextView) findViewById(R.id.id_print);
                                 TextView iban_p = (TextView) findViewById(R.id.iban_print);
                                 TextView amount_p = (TextView) findViewById(R.id.amount_print);
@@ -225,7 +225,7 @@ public class page_bank extends AppCompatActivity implements AdapterView.OnItemSe
                                 currency_p.setText(b.getCurrency());
                             }
                             i[0] = i[0] + 1;
-                            System.out.println("contage pour arriver a destination :" + i[0]);
+                            //System.out.println("contage pour arriver a destination :" + i[0]);
                         }
                     }
                 }
